@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const cors = require("cors");
 const UserRouter = require("./routes/users");
 const PinRouter = require("./routes/pins");
 
@@ -17,7 +18,13 @@ mongoose
   })
   .catch((err) => console.log(err));
 
+let corsOption = {
+  origin: "http://localhost:3000/",
+  Credential: true,
+};
+
 //middleware
+app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", UserRouter);
